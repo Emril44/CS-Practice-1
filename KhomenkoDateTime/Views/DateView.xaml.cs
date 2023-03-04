@@ -1,4 +1,5 @@
-﻿using KhomenkoDateTime.ViewModels;
+﻿using KhomenkoDateTime.Models;
+using KhomenkoDateTime.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace KhomenkoDateTime.Views
             }
 
             //TODO get calculated data & operate with it
-            MessageBox.Show("This is working! :D");
+            MessageBox.Show(_viewModel.Date.ToString() + " :D");
         }
     }
 }

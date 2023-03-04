@@ -36,11 +36,12 @@
             Text="We will output your information"
             ></TextBlock>
         <DatePicker
-            Name="DateSelect"
+            x:Name="DateSelect"
             Grid.Row="1"
             Grid.Column="0"
             VerticalAlignment="Top"
             Margin="20"
+            SelectedDate="{Binding Date}"
             ></DatePicker>
         <Button
             Name="ConfirmInput"
