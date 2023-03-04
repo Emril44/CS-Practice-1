@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KhomenkoDateTime.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KhomenkoDateTime
+namespace KhomenkoDateTime.Views
 {
     /// <summary>
     /// Interaction logic for DateControl.xaml
     /// </summary>
-    public partial class DateControl : UserControl
+    public partial class DateView : UserControl
     {
-        public DateControl()
+        private DateViewModel _viewModel;
+
+        public DateView()
         {
             InitializeComponent();
+            DataContext = _viewModel = new DateViewModel();
         }
 
         private void ConfirmInput_Click(object sender, RoutedEventArgs e)
