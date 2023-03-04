@@ -24,11 +24,5 @@ namespace KhomenkoDateTime
         {
             InitializeComponent();
         }
-
-        private void ConfirmInput_Click(object sender, RoutedEventArgs e)
-        {
-            if (DateSelect.SelectedDate == null)
-                MessageBox.Show("dickbutt");
-        }
     }
 }
