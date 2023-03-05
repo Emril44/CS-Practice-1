@@ -14,7 +14,10 @@ namespace KhomenkoDateTime.ViewModels
 		public DateTime Date
 		{
 			get { return _date; }
-			set { _date = value; }
+			set
+            {
+                _date = value;
+            }
 		}
 
         private int _age;
@@ -22,7 +25,7 @@ namespace KhomenkoDateTime.ViewModels
         public int Age
         {
             get { return _age; }
-            set { _age = value; }
+            set { _age = value; CalculateAge(); }
         }
 
         private string _chinaZodiac = "";
@@ -30,20 +33,27 @@ namespace KhomenkoDateTime.ViewModels
         public string ChineseZodiac
         {
             get { return _chinaZodiac; }
-            set { _chinaZodiac = value; }
+            set { _chinaZodiac = value; GetChineseZodiac(); }
         }
 
+        private string _westZodiac = "";
 
-        public void CalculateAge()
+        public string WesternZodiac
+        {
+            get { return _westZodiac = ""; }
+            set { _westZodiac = value; GetWesternZodiac(); }
+        }
+
+        private void CalculateAge()
         {
             DateIsValid();
 
             var today = DateTime.Today;
 
-            int age = (int)((today - _date).TotalDays / 365.242199);
+            int age = (int)((today - Date).TotalDays / 365.242199);
             if (age >= 0 && age <= 135)
             {
-                _age = age;
+                Age = age;
                 return;
             }
 
@@ -56,58 +66,42 @@ namespace KhomenkoDateTime.ViewModels
             DateIsValid();
 
             var today = DateTime.Today;
-            return (_date.Day == today.Day) && (_date.Month == today.Month);
+            return (Date.Day == today.Day) && (Date.Month == today.Month);
         }
 
-        public string GetWesternZodiac()
+        private void GetWesternZodiac()
         {
-            int month = _date.Month; int day = _date.Day;
-
-            switch (month)
-            {
-                case 1:
-                    if (day <= 19)
-                        return "Capricorn"; else return "Aquarius";
-                case 2:
-                    if (day <= 18)
-                        return "Aquarius"; else return "Pisces";
-                case 3:
-                    if (day <= 20)
-                        return "Pisces"; else return "Aries";
-                case 4:
-                    if (day <= 19)
-                        return "Aries"; else return "Taurus";
-                case 5:
-                    if (day <= 20)
-                        return "Taurus"; else return "Gemini";
-                case 6:
-                    if (day <= 20)
-                        return "Gemini"; else return "Cancer";
-                case 7:
-                    if (day <= 22)
-                        return "Cancer"; else return "Leo";
-                case 8:
-                    if (day <= 22)
-                        return "Leo"; else return "Virgo";
-                case 9:
-                    if (day <= 22)
-                        return "Virgo"; else return "Libra";
-                case 10:
-                    if (day <= 22)
-                        return "Libra"; else return "Scorpio";
-                case 11:
-                    if (day <= 21)
-                        return "Scorpio"; else return "Sagittarius";
-                case 12:
-                    if (day <= 21)
-                        return "Sagittarius"; else return "Capricorn";
-            }
-            return "";
+            int day = Date.Day;
+            int month = Date.Month;
+            if ((day >= 21 && month == 1) || (day <= 19 && month == 2))
+                WesternZodiac = "Aquarius";
+            else if ((day >= 20 && month == 2) || (day <= 20 && month == 3))
+                WesternZodiac = "Pisces";
+            else if ((day >= 21 && month == 3) || (day <= 20 && month == 4))
+                WesternZodiac = "Aries";
+            else if ((day >= 21 && month == 4) || (day <= 21 && month == 5))
+                WesternZodiac = "Taurus";
+            else if ((day >= 22 && month == 5) || (day <= 21 && month == 6))
+                WesternZodiac = "Gemini";
+            else if ((day >= 21 && month == 6) || (day <= 23 && month == 7))
+                WesternZodiac = "Cancer";
+            else if ((day >= 24 && month == 7) || (day <= 23 && month == 8))
+                WesternZodiac = "Leo";
+            else if ((day >= 24 && month == 8) || (day <= 23 && month == 9))
+                WesternZodiac = "Virgo";
+            else if ((day >= 24 && month == 9) || (day <= 23 && month == 10))
+                WesternZodiac = "Libra";
+            else if ((day >= 24 && month == 10) || (day <= 22 && month == 11))
+                WesternZodiac = "Scorpio";
+            else if ((day >= 23 && month == 11) || (day <= 21 && month == 12))
+                WesternZodiac = "Sagittarius";
+            else if ((day >= 22 && month == 12) || (day <= 20 && month == 1))
+                WesternZodiac = "Capricorn";
         }
 
         private void GetChineseZodiac()
         {
-            switch (_date.Year % 12)
+            switch (Date.Year % 12)
             {
                 case 0:  ChineseZodiac = "Monkey"; break;
                 case 1:  ChineseZodiac = "Rooster"; break;
@@ -126,7 +120,7 @@ namespace KhomenkoDateTime.ViewModels
 
         private void DateIsValid()
 		{
-            if (_date.Equals(null))
+            if (Date.Equals(null))
             {
                 MessageBox.Show("No date set!");
                 return;
