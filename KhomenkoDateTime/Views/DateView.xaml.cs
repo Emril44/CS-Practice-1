@@ -1,5 +1,4 @@
-﻿using KhomenkoDateTime.Models;
-using KhomenkoDateTime.ViewModels;
+﻿using KhomenkoDateTime.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +39,20 @@ namespace KhomenkoDateTime.Views
             }
 
             //TODO get calculated data & operate with it
-            MessageBox.Show(_viewModel.Date.ToString() + " :D");
+            _viewModel.Date = (DateTime) DateSelect.SelectedDate;
+            _viewModel.CalculateAge();
+
+            if(_viewModel.Age > 0)
+            {
+                MessageBox.Show("age: " + _viewModel.Age);
+            }
+
+            if(_viewModel.IsItBirthday())
+            {
+                MessageBox.Show("Happy Birthday! I hope you're doing great! :D");
+            }
+
+            MessageBox.Show(_viewModel.GetWesternZodiac());
         }
     }
 }
