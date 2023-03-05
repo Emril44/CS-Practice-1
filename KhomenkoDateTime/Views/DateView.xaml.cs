@@ -38,8 +38,15 @@ namespace KhomenkoDateTime.Views
                 return;
             }
 
-            //TODO get calculated data & operate with it
+            // get calculated data & operate with it
             _viewModel.Date = (DateTime) DateSelect.SelectedDate;
+            Age.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            if(_viewModel.IsItBirthday())
+            {
+                MessageBox.Show("Happy birthday! I hope you're doing great! :D");
+            }
+            WesternZodiac.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
+            ChineseZodiac.GetBindingExpression(TextBlock.TextProperty).UpdateTarget();
         }
     }
 }
